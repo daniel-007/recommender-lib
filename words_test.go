@@ -78,3 +78,9 @@ func TestContains(t *testing.T) {
 		t.Errorf("Result should be false, isntead of %t", res)
 	}
 }
+
+func BenchmarkTrain(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Train(posts)
+	}
+}

@@ -1,9 +1,6 @@
 package recommender
 
 import (
-	"encoding/json"
-	"fmt"
-	"sort"
 	"strings"
 )
 
@@ -17,19 +14,14 @@ type replace struct {
 	old string
 }
 
-func Train(posts []Post) {
+func Train(posts []Post) map[string]map[string]bool {
 	var wordsContainer [][]string
 	for _, post := range posts {
 		wordsContainer = append(wordsContainer, getWordsOfPost(post.Body))
 	}
 	words := getAllWords(wordsContainer)
 
-	//fmt.Println(len(words))
-
-	result := mapPostsByWords(posts, words)
-	j, _ := json.Marshal(result)
-	fmt.Println(string(j))
-
+	return mapPostsByWords(posts, words)
 }
 
 func mapPostsByWords(posts []Post, words []string) map[string]map[string]bool {
@@ -75,8 +67,12 @@ func getAllWords(container [][]string) []string {
 }
 
 func contains(list []string, word string) bool {
-	sort.Strings(list)
-	return sort.SearchStrings(list, word) == 0
+	for _, w := range list {
+		if w == word {
+			return true
+		}
+	}
+	return false
 }
 
 func replacer(body string) string {
