@@ -63,3 +63,18 @@ func TestGetWordsOfPost(t *testing.T) {
 func TestTrain(t *testing.T) {
 	Train(posts)
 }
+
+func TestContains(t *testing.T) {
+	var list = []string{"test1", "test3", "test4"}
+	var test1 = "test1"
+	res := contains(list, test1)
+	if res != true {
+		t.Errorf("Result should be true, isntead of %t", res)
+	}
+
+	var test2 = "test2"
+	res = contains(list, test2)
+	if res != false {
+		t.Errorf("Result should be false, isntead of %t", res)
+	}
+}

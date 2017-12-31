@@ -1,7 +1,9 @@
 package recommender
 
 import (
+	"encoding/json"
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -22,8 +24,24 @@ func Train(posts []Post) {
 	}
 	words := getAllWords(wordsContainer)
 
-	fmt.Println(len(words))
+	//fmt.Println(len(words))
 
+	result := mapPostsByWords(posts, words)
+	j, _ := json.Marshal(result)
+	fmt.Println(string(j))
+
+}
+
+func mapPostsByWords(posts []Post, words []string) map[string]map[string]bool {
+	var trained = make(map[string]map[string]bool)
+	for _, post := range posts {
+		wordsOfPost := getWordsOfPost(post.Body)
+		trained[post.Title] = make(map[string]bool)
+		for _, word := range words {
+			trained[post.Title][word] = contains(wordsOfPost, word)
+		}
+	}
+	return trained
 }
 
 func getWordsOfPost(body string) []string {
@@ -54,6 +72,11 @@ func getAllWords(container [][]string) []string {
 		wordsUniq = append(wordsUniq, k)
 	}
 	return wordsUniq
+}
+
+func contains(list []string, word string) bool {
+	sort.Strings(list)
+	return sort.SearchStrings(list, word) == 0
 }
 
 func replacer(body string) string {
