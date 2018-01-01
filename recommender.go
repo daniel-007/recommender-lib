@@ -14,6 +14,10 @@ type replace struct {
 	old string
 }
 
+func Recommend(data map[string]map[string]bool) []string {
+	return []string{}
+}
+
 func Train(posts []Post) map[string]map[string]bool {
 	var wordsContainer [][]string
 	for _, post := range posts {
@@ -23,6 +27,14 @@ func Train(posts []Post) map[string]map[string]bool {
 
 	return mapPostsByWords(posts, words)
 }
+
+/*
+	Recommend related
+*/
+
+/*
+	Train related
+*/
 
 func mapPostsByWords(posts []Post, words []string) map[string]map[string]bool {
 	var trained = make(map[string]map[string]bool)
