@@ -5,6 +5,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/gaspiman/cosine_similarity"
 	"github.com/jdkato/prose/tokenize"
 )
 
@@ -122,6 +123,52 @@ func (r *Recommender) tokenize(data string) []string {
 	Section deals with the binary vector representation of the given post
 */
 
+func (r *Recommender) BinaryRepresentation(unprocessedContent interface{}, vocabulary []string) (map[string][]int8, error) {
+	var representations = make(map[string][]int8)
+
+	rv := reflect.ValueOf(unprocessedContent)
+	rt := rv.Type()
+
+	if rt.Kind() != reflect.Slice {
+		return nil, errors.New("must be slice")
+	}
+
+	for i := 0; i < rv.Len(); i++ {
+		rvInner := rv.Index(i)
+		if rvInner.Kind() != reflect.Struct {
+			return nil, errors.New("slice elements must be structs")
+		}
+
+		rvInnerType := rvInner.Type()
+		var id string
+
+	Loop:
+		for j := 0; j < rvInnerType.NumField(); j++ {
+			field := rvInner.Field(j)
+			fieldType := rvInnerType.Field(j)
+
+			indexable, ok := fieldType.Tag.Lookup("indexable")
+			if ok {
+				if indexable == "id" {
+					if field.Kind() == reflect.String {
+						id = field.String()
+						break Loop
+					}
+				}
+			}
+		}
+
+		representation, err := r.getBinaryRepresentation(rvInner.Interface(), vocabulary)
+		if err != nil {
+			return nil, err
+		}
+
+		representations[id] = representation
+	}
+
+	return representations, nil
+}
+
 func (r *Recommender) getBinaryRepresentation(unprocessedContent interface{}, vocabulary []string) ([]int8, error) {
 	var binaryRepresentation []int8
 
@@ -153,155 +200,6 @@ func (r *Recommender) getBinaryRepresentation(unprocessedContent interface{}, vo
 	return binaryRepresentation, nil
 }
 
-/*
-	OLD
-*/
-
-type Post struct {
-	Title string
-	Body  string
-}
-
-type replace struct {
-	new string
-	old string
-}
-
-func Recommend(data map[string]map[string]bool) []string {
-	return []string{}
-}
-
-func Train(posts []Post) map[string]map[string]bool {
-	var wordsContainer [][]string
-	for _, post := range posts {
-		wordsContainer = append(wordsContainer, getWordsOfPost(post.Body))
-	}
-	words := getAllWords(wordsContainer)
-
-	return mapPostsByWords(posts, words)
-}
-
-/*
-	Recommend related
-*/
-
-/*
-	Train related
-*/
-
-func tokenizer(data string) []string {
-	//tokenizer := tokenize.NewTreebankWordTokenizer()
-	tokenizer2 := tokenize.NewTreebankWordTokenizer()
-
-	// @TODO setup tokenizer for different options
-
-	//return tokenizer.Tokenize(data)
-	return tokenizer2.Tokenize(data)
-}
-
-func indexing(dataSet []string) map[int]string {
-	var indexedRepresentation map[int]string
-
-	return indexedRepresentation
-}
-
-func mapPostsByWords(posts []Post, words []string) map[string]map[string]bool {
-	var trained = make(map[string]map[string]bool)
-	for _, post := range posts {
-		wordsOfPost := getWordsOfPost(post.Body)
-		trained[post.Title] = make(map[string]bool)
-		for _, word := range words {
-			trained[post.Title][word] = contains(wordsOfPost, word)
-		}
-	}
-	return trained
-}
-
-func getWordsOfPost(body string) []string {
-	var wordsUniq []string
-	var wordsMap = make(map[string]bool)
-	body = replacer(strings.ToLower(body))
-	words := strings.Split(body, " ")
-
-	for _, word := range words {
-		wordsMap[word] = true
-	}
-	for k := range wordsMap {
-		wordsUniq = append(wordsUniq, k)
-	}
-	return wordsUniq
-}
-
-func getAllWords(container [][]string) []string {
-	var wordsUniq []string
-	var wordsMap = make(map[string]bool)
-
-	for _, words := range container {
-		for _, word := range words {
-			wordsMap[word] = true
-		}
-	}
-	for k := range wordsMap {
-		wordsUniq = append(wordsUniq, k)
-	}
-	return wordsUniq
-}
-
-func contains(list []string, word string) bool {
-	for _, w := range list {
-		if w == word {
-			return true
-		}
-	}
-	return false
-}
-
-func replacer(body string) string {
-	var replaces = []replace{
-		replace{
-			new: "",
-			old: ",",
-		},
-		replace{
-			new: "",
-			old: ".",
-		},
-		replace{
-			old: "“",
-			new: "",
-		},
-		replace{
-			old: ")",
-			new: "",
-		},
-		replace{
-			old: "(",
-			new: "",
-		},
-		replace{
-			old: "!",
-			new: "",
-		},
-		replace{
-			old: " — ",
-			new: " ",
-		},
-		replace{
-			old: "”",
-			new: "",
-		},
-		replace{
-			old: "?",
-			new: "",
-		},
-		replace{
-			old: ":",
-			new: "",
-		},
-	}
-
-	for _, r := range replaces {
-		body = strings.Replace(body, r.old, r.new, -1)
-	}
-	return body
+func (r *Recommender) CosineSimilarity() {
+	cosine_similarity.Cosine(nil, nil)
 }

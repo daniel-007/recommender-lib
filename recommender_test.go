@@ -93,44 +93,14 @@ func TestGetBinaryRepresentation(t *testing.T) {
 	fmt.Println(binaryRepresentation)
 }
 
-func TestGetWordsOfPost(t *testing.T) {
-	getWordsOfPost(posts[0].Body)
-}
+func TestBinaryRepresentation(t *testing.T) {
+	recommender := New(WordBoundary)
 
-func TestTrain(t *testing.T) {
-	//Train(posts)
+	vocabulary, err := recommender.Vocabulary(posts)
+	assert.NoError(t, err)
 
-}
+	binaryRepresentation, err := recommender.BinaryRepresentation(posts, vocabulary)
+	assert.NoError(t, err)
 
-func TestTokenizer(t *testing.T) {
-	/*var data string
-	for _, post := range posts {
-		data += post.Body
-	}
-	words := tokenizer(data)
-	for _, word := range words {
-		fmt.Println(word)
-	}*/
-
-}
-
-func TestContains(t *testing.T) {
-	var list = []string{"test1", "test3", "test4"}
-	var test1 = "test1"
-	res := contains(list, test1)
-	if res != true {
-		t.Errorf("Result should be true, isntead of %t", res)
-	}
-
-	var test2 = "test2"
-	res = contains(list, test2)
-	if res != false {
-		t.Errorf("Result should be false, isntead of %t", res)
-	}
-}
-
-func BenchmarkTrain(b *testing.B) {
-	for n := 0; n < b.N; n++ {
-		//Train(posts)
-	}
+	fmt.Println(binaryRepresentation)
 }
