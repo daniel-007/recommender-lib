@@ -19,15 +19,17 @@ const (
 )
 
 type Recommender struct {
-	TokenizerType      TokenizerType
-	tokenizer          tokenize.ProseTokenizer
-	unprocessedContent interface{}
+	TokenizerType TokenizerType
+	tokenizer     tokenize.ProseTokenizer
 }
 
-func New(tokenizerType TokenizerType, unprocessedContent interface{}) Recommender {
+/*
+	Setup of the recommender
+*/
+
+func New(tokenizerType TokenizerType) Recommender {
 	r := Recommender{
-		TokenizerType:      tokenizerType,
-		unprocessedContent: unprocessedContent,
+		TokenizerType: tokenizerType,
 	}
 
 	r.getTokenizer()
@@ -49,10 +51,23 @@ func (r *Recommender) getTokenizer() {
 	}
 }
 
-func (r *Recommender) getWords() ([]string, error) {
+/*
+	Section deals with the words, getting the actual list of unique words
+*/
+
+func (r *Recommender) Vocabulary(unprocessedContent interface{}) ([]string, error) {
+	words, err := r.getWords(unprocessedContent)
+	if err != nil {
+		return nil, err
+	}
+
+	return r.getUniqueWords(words), nil
+}
+
+func (r *Recommender) getWords(unprocessedContent interface{}) ([]string, error) {
 	//var documentVectors []string
 
-	rv := reflect.ValueOf(r.unprocessedContent)
+	rv := reflect.ValueOf(unprocessedContent)
 	rt := rv.Type()
 
 	if rt.Kind() != reflect.Slice {
@@ -79,18 +94,63 @@ func (r *Recommender) getWords() ([]string, error) {
 						wholeContent += field.String()
 					}
 				}
-				//fmt.Println(indexable)
 			}
-
-			//fmt.Println(field)
 		}
 	}
 
 	return r.tokenize(wholeContent), nil
 }
 
+func (r *Recommender) getUniqueWords(words []string) []string {
+	var wordsUniq []string
+	var wordsMap = make(map[string]bool)
+
+	for _, word := range words {
+		wordsMap[word] = true
+	}
+	for k := range wordsMap {
+		wordsUniq = append(wordsUniq, k)
+	}
+	return wordsUniq
+}
+
 func (r *Recommender) tokenize(data string) []string {
 	return r.tokenizer.Tokenize(data)
+}
+
+/*
+	Section deals with the binary vector representation of the given post
+*/
+
+func (r *Recommender) getBinaryRepresentation(unprocessedContent interface{}, vocabulary []string) ([]int8, error) {
+	var binaryRepresentation []int8
+
+	rv := reflect.ValueOf(unprocessedContent)
+	rt := rv.Type()
+
+	if rv.Kind() != reflect.Struct {
+		return nil, errors.New("must be struct")
+	}
+
+	var content string
+	for i := 0; i < rt.NumField(); i++ {
+		if tag, ok := rt.Field(i).Tag.Lookup("indexable"); ok && tag == "content" {
+			if rv.Field(i).Kind() != reflect.String {
+				continue
+			}
+			content += rv.Field(i).String() + " "
+		}
+	}
+
+	for _, word := range vocabulary {
+		if strings.Contains(content, word) {
+			binaryRepresentation = append(binaryRepresentation, 1)
+		} else {
+			binaryRepresentation = append(binaryRepresentation, 0)
+		}
+	}
+
+	return binaryRepresentation, nil
 }
 
 /*

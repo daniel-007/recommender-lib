@@ -71,14 +71,26 @@ var posts = []PostTest{
 }
 
 func TestGetWords(t *testing.T) {
-	recommender := New(TreebankWord, posts)
+	recommender := New(WordBoundary)
 
-	words, err := recommender.getWords()
+	words, err := recommender.getWords(posts)
 	assert.NoError(t, err)
-	for _, word := range words {
-		fmt.Println(word)
-	}
+	assert.Equal(t, 3486, len(words))
 
+	words = recommender.getUniqueWords(words)
+	assert.Equal(t, 1317, len(words))
+}
+
+func TestGetBinaryRepresentation(t *testing.T) {
+	recommender := New(WordBoundary)
+
+	vocabulary, err := recommender.Vocabulary(posts)
+	assert.NoError(t, err)
+
+	binaryRepresentation, err := recommender.getBinaryRepresentation(posts[0], vocabulary)
+	assert.NoError(t, err)
+
+	fmt.Println(binaryRepresentation)
 }
 
 func TestGetWordsOfPost(t *testing.T) {
