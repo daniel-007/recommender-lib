@@ -71,7 +71,7 @@ var posts = []PostTest{
 }
 
 func TestGetWords(t *testing.T) {
-	recommender := New(WordBoundary)
+	recommender := New(WordBoundary, true)
 
 	words, err := recommender.getWords(posts)
 	assert.NoError(t, err)
@@ -82,7 +82,7 @@ func TestGetWords(t *testing.T) {
 }
 
 func TestGetBinaryRepresentation(t *testing.T) {
-	recommender := New(WordBoundary)
+	recommender := New(WordBoundary, true)
 
 	vocabulary, err := recommender.Vocabulary(posts)
 	assert.NoError(t, err)
@@ -94,7 +94,7 @@ func TestGetBinaryRepresentation(t *testing.T) {
 }
 
 func TestBinaryRepresentation(t *testing.T) {
-	recommender := New(WordBoundary)
+	recommender := New(WordBoundary, true)
 
 	vocabulary, err := recommender.Vocabulary(posts)
 	assert.NoError(t, err)

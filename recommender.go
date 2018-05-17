@@ -5,9 +5,15 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/caneroj1/stemmer"
 	"github.com/gaspiman/cosine_similarity"
 	"github.com/jdkato/prose/tokenize"
 )
+
+/*
+	https://en.wikipedia.org/wiki/Bag-of-words_model
+	https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html
+*/
 
 type TokenizerType int8
 
@@ -21,6 +27,7 @@ const (
 
 type Recommender struct {
 	TokenizerType TokenizerType
+	Stemming      bool
 	tokenizer     tokenize.ProseTokenizer
 }
 
@@ -28,9 +35,10 @@ type Recommender struct {
 	Setup of the recommender
 */
 
-func New(tokenizerType TokenizerType) Recommender {
+func New(tokenizerType TokenizerType, stemming bool) Recommender {
 	r := Recommender{
 		TokenizerType: tokenizerType,
+		Stemming:      stemming,
 	}
 
 	r.getTokenizer()
@@ -62,7 +70,15 @@ func (r *Recommender) Vocabulary(unprocessedContent interface{}) ([]string, erro
 		return nil, err
 	}
 
+	if r.Stemming {
+		words = r.getUniqueWords(r.stem(words))
+	}
+
 	return r.getUniqueWords(words), nil
+}
+
+func (r *Recommender) stem(words []string) []string {
+	return stemmer.StemMultiple(words)
 }
 
 func (r *Recommender) getWords(unprocessedContent interface{}) ([]string, error) {
