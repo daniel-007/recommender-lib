@@ -1,10 +1,22 @@
 package recommender
 
-import "testing"
+import (
+	"fmt"
+	"testing"
 
-var posts = []Post{
-	Post{
+	"github.com/stretchr/testify/assert"
+)
+
+type PostTest struct {
+	ID    string `indexable:"id"`
+	Title string `indexable:"content"`
+	Body  string `indexable:"content"`
+}
+
+var posts = []PostTest{
+	PostTest{
 		// Original post: https://medium.com/@samlansky/the-theory-of-visitors-4c7dd3a1b6d4
+		ID:    "ac59ab05-172b-4f09-9b17-1dfe1cb41156",
 		Title: "The theory of visitors",
 		Body: `I went on a Tinder date with a schoolteacher who read me poetry aloud on his faded leather couch, but he seemed a little too earnest for me, so I went on a Hinge date with a musician who sang songs to me from the piano, but I was afraid to get involved with another creative type, and then I went on a Raya date with a movie producer who took me to a dinner so fancy it felt like a brag, and I imagined what it would be like to be a stepfather to his daughters, flaxen-haired sprites with names like Annabelle or Clarissa, but then I decided I was too young for all that, and I went on a date with a college student I met on Bumble who told me he couldn’t afford to eat out, so we sat on a curb on Sunset eating soft corn tacos from a truck on the corner, and for a moment I felt older than I really was, older than I had ever been before, though in fact I wasn’t even 30 yet. I went on dates with older guys and learned to get their references, the same allusions to movies and television shows released before I was born that seemed to be touchstones for gay men of a certain age — of course I love Beaches! — but I also went on dates with guys my own age or even younger, and I was comfortable with their language, too, Snapchatting selfies from my bed captioned “tired af” dotted with sleepy-eyed emojis. When I went on dates with successful guys, I knew what to say, commiserating over how crowded Soho House had become (it’s overrun!), but later I would complain to friends about their uninterrogated privilege and the high likelihood that they had secret cocaine habits, because rich guys so often do. When I went on dates with guys who were broke, I related to them, too, that needling anxiety of feeling like you never have enough in a city where everyone seems to have so much, but I would rule them out — telling friends that I needed someone more “worldly” and “accomplished,” this politely coded classism that still allowed me to feel good about myself.
 		I went on dates in cities all over the country, wherever I was, even if I was only there for a night or two, finding some guy on an app who might keep me company over dinner or drinks. I went on dates when I was happy, and I went on dates when I was sad. I went on dates to feel complete when I felt empty, and when I felt complete on my own I went on dates then, too, because surely, I thought, I should want to be in a partnership composed of two whole people. These motivations were equally powerful — both the allure of fullness when I was starving and the allure of a complement to something that was already just fine on its own, the way a nice wine might pair with a good meal. I went on dates even when I didn’t want to, when I would have preferred to stay home and watch Netflix or go out with my friends, because if I did not go on dates I might never find love, and I knew that love was the highest calling.
@@ -17,8 +29,9 @@ var posts = []Post{
 		She leaned in. “Do you believe in the theory of visitors?” She said this conspiratorially, as if she was sharing with me a secret.
 		“What’s that?” I asked.`,
 	},
-	Post{
+	PostTest{
 		// Original post: https://medium.com/@francois.chollet/the-impossibility-of-intelligence-explosion-5be4a9eda6ec
+		ID:    "dc869e14-0aad-4a3a-b066-6eaf7bd97ec8",
 		Title: "The impossibility of intelligence explosion",
 		Body: `In 1965, I. J. Good described for the first time the notion of “intelligence explosion”, as it relates to artificial intelligence (AI):
 		Let an ultraintelligent machine be defined as a machine that can far surpass all the intellectual activities of any man however clever. Since the design of machines is one of these intellectual activities, an ultraintelligent machine could design even better machines; there would then unquestionably be an “intelligence explosion,” and the intelligence of man would be left far behind. Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.
@@ -28,8 +41,9 @@ var posts = []Post{
 		The reasoning behind intelligence explosion, like many of the early theories about AI that arose in the 1960s and 1970s, is sophistic: it considers “intelligence” in a completely abstract way, disconnected from its context, and ignores available evidence about both intelligent systems and recursively self-improving systems. It doesn’t have to be that way. We are, after all, on a planet that is literally packed with intelligent systems (including us) and self-improving systems, so we can simply observe them and learn from them to answer the questions at hand, instead of coming up with evidence-free circular reasonings.
 		To talk about intelligence and its possible self-improving properties, we should first introduce necessary background and context. What are we talking about when we talk about intelligence? Precisely defining intelligence is in itself a challenge. The intelligence explosion narrative equates intelligence with the general problem-solving ability displayed by individual intelligent agents — by current human brains, or future electronic brains. This is not quite the full picture, so let’s use this definition as a starting point, and expand on it.`,
 	},
-	Post{
+	PostTest{
 		// Original post: https://medium.com/@mokan9997/hidden-in-plain-sight-4761be7b8115
+		ID:    "bd1df59b-366a-4afa-90e2-cbf82f2c6bc6",
 		Title: "Hidden in Plain Sight",
 		Body: `In early 1989, I was working as a business reporter in Washington, D.C., and interviewing a private investigator for a story about his company. At the end of our conversation, he casually mentioned he’d done some research into the assassination of President John F. Kennedy.
 		“Oh yeah?” I said, in an ironic, indifferent way. “So who killed him?” He said: “Well, I think this gunsmith in Baltimore, a guy named Howard Donahue, figured it out.” The private eye showed me a magazine article from 1977 and as I read it, my skepticism began to fade. Within a week, I was heading to nearby Towson, Maryland, to meet Donahue in person.
@@ -56,12 +70,36 @@ var posts = []Post{
 	},
 }
 
+func TestGetWords(t *testing.T) {
+	recommender := New(TreebankWord, posts)
+
+	words, err := recommender.getWords()
+	assert.NoError(t, err)
+	for _, word := range words {
+		fmt.Println(word)
+	}
+
+}
+
 func TestGetWordsOfPost(t *testing.T) {
 	getWordsOfPost(posts[0].Body)
 }
 
 func TestTrain(t *testing.T) {
-	Train(posts)
+	//Train(posts)
+
+}
+
+func TestTokenizer(t *testing.T) {
+	/*var data string
+	for _, post := range posts {
+		data += post.Body
+	}
+	words := tokenizer(data)
+	for _, word := range words {
+		fmt.Println(word)
+	}*/
+
 }
 
 func TestContains(t *testing.T) {
@@ -81,6 +119,6 @@ func TestContains(t *testing.T) {
 
 func BenchmarkTrain(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		Train(posts)
+		//Train(posts)
 	}
 }

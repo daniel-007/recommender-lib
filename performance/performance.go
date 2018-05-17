@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-	"runtime/pprof"
 
 	recommender "github.com/PumpkinSeed/recommender-lib"
+	"github.com/pkg/profile"
 )
 
 var posts = []recommender.Post{
@@ -64,14 +62,10 @@ var posts = []recommender.Post{
 }
 
 func main() {
-
-	f, err := os.Create("cpu.pprof")
-	if err != nil {
-		log.Fatal(err)
+	defer profile.Start(profile.CPUProfile).Stop()
+	var res map[string]map[string]bool
+	for i := 0; i < 1000; i++ {
+		res = recommender.Train(posts)
 	}
-	pprof.StartCPUProfile(f)
-	defer pprof.StopCPUProfile()
-	res := recommender.Train(posts)
 	fmt.Println(res)
-
 }

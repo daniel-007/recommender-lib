@@ -1,8 +1,101 @@
 package recommender
 
 import (
+	"errors"
+	"reflect"
 	"strings"
+
+	"github.com/jdkato/prose/tokenize"
 )
+
+type TokenizerType int8
+
+const (
+	Blankline TokenizerType = iota
+	PunkSentence
+	TreebankWord
+	WordBoundary
+	WordPunct
+)
+
+type Recommender struct {
+	TokenizerType      TokenizerType
+	tokenizer          tokenize.ProseTokenizer
+	unprocessedContent interface{}
+}
+
+func New(tokenizerType TokenizerType, unprocessedContent interface{}) Recommender {
+	r := Recommender{
+		TokenizerType:      tokenizerType,
+		unprocessedContent: unprocessedContent,
+	}
+
+	r.getTokenizer()
+	return r
+}
+
+func (r *Recommender) getTokenizer() {
+	switch r.TokenizerType {
+	case Blankline:
+		r.tokenizer = tokenize.NewBlanklineTokenizer()
+	case PunkSentence:
+		r.tokenizer = tokenize.NewPunktSentenceTokenizer()
+	case TreebankWord:
+		r.tokenizer = tokenize.NewTreebankWordTokenizer()
+	case WordBoundary:
+		r.tokenizer = tokenize.NewWordBoundaryTokenizer()
+	case WordPunct:
+		r.tokenizer = tokenize.NewWordPunctTokenizer()
+	}
+}
+
+func (r *Recommender) getWords() ([]string, error) {
+	//var documentVectors []string
+
+	rv := reflect.ValueOf(r.unprocessedContent)
+	rt := rv.Type()
+
+	if rt.Kind() != reflect.Slice {
+		return nil, errors.New("must be slice")
+	}
+
+	var wholeContent string
+	for i := 0; i < rv.Len(); i++ {
+		rvInner := rv.Index(i)
+		if rvInner.Kind() != reflect.Struct {
+			return nil, errors.New("slice elements must be structs")
+		}
+
+		rvInnerType := rvInner.Type()
+
+		for j := 0; j < rvInnerType.NumField(); j++ {
+			field := rvInner.Field(j)
+			fieldType := rvInnerType.Field(j)
+
+			indexable, ok := fieldType.Tag.Lookup("indexable")
+			if ok {
+				if indexable == "content" {
+					if field.Kind() == reflect.String {
+						wholeContent += field.String()
+					}
+				}
+				//fmt.Println(indexable)
+			}
+
+			//fmt.Println(field)
+		}
+	}
+
+	return r.tokenize(wholeContent), nil
+}
+
+func (r *Recommender) tokenize(data string) []string {
+	return r.tokenizer.Tokenize(data)
+}
+
+/*
+	OLD
+*/
 
 type Post struct {
 	Title string
@@ -35,6 +128,22 @@ func Train(posts []Post) map[string]map[string]bool {
 /*
 	Train related
 */
+
+func tokenizer(data string) []string {
+	//tokenizer := tokenize.NewTreebankWordTokenizer()
+	tokenizer2 := tokenize.NewTreebankWordTokenizer()
+
+	// @TODO setup tokenizer for different options
+
+	//return tokenizer.Tokenize(data)
+	return tokenizer2.Tokenize(data)
+}
+
+func indexing(dataSet []string) map[int]string {
+	var indexedRepresentation map[int]string
+
+	return indexedRepresentation
+}
 
 func mapPostsByWords(posts []Post, words []string) map[string]map[string]bool {
 	var trained = make(map[string]map[string]bool)
