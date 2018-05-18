@@ -2,11 +2,13 @@ package recommender
 
 import (
 	"errors"
+	"fmt"
 	"math"
 	"reflect"
 	"strings"
 
 	"github.com/caneroj1/stemmer"
+	"github.com/cdipaolo/goml/text"
 	"github.com/gaspiman/cosine_similarity"
 	"github.com/jdkato/prose/tokenize"
 )
@@ -81,6 +83,8 @@ func (r *Recommender) Vocabulary(unprocessedContent interface{}) ([]string, erro
 	return r.getUniqueWords(words), nil
 }
 
+// stem get the vocabulary and get the exact words like the pure meaning
+// ex.: doing -> do
 func (r *Recommender) stem(words []string) []string {
 	return stemmer.StemMultiple(words)
 }
@@ -181,6 +185,15 @@ func (r *Recommender) ngramsBySize(words []string, size int) map[string]uint32 {
 	}
 
 	return count
+}
+
+/*
+	Section deals with the frequency of the words
+*/
+
+func (r *Recommender) Frequency(words []string) {
+	freq := text.TermFrequencies(words)
+	fmt.Println(freq)
 }
 
 /*

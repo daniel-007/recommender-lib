@@ -117,6 +117,15 @@ func TestNgrams(t *testing.T) {
 	}*/
 }
 
+func TestFrequency(t *testing.T) {
+	recommender := New(WordBoundary, true, []int{1})
+
+	words, err := recommender.getWords(posts)
+	assert.NoError(t, err)
+
+	recommender.Frequency(words)
+}
+
 func BenchmarkNgrams(b *testing.B) {
 	recommender := New(WordBoundary, true, []int{2, 3, 4, 5, 6, 7, 8, 9})
 
