@@ -1,7 +1,6 @@
 package recommender
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -71,7 +70,7 @@ var posts = []PostTest{
 }
 
 func TestGetWords(t *testing.T) {
-	recommender := New(WordBoundary, true)
+	recommender := New(WordBoundary, true, []int{1})
 
 	words, err := recommender.getWords(posts)
 	assert.NoError(t, err)
@@ -82,25 +81,58 @@ func TestGetWords(t *testing.T) {
 }
 
 func TestGetBinaryRepresentation(t *testing.T) {
-	recommender := New(WordBoundary, true)
+	recommender := New(WordBoundary, true, []int{1})
 
 	vocabulary, err := recommender.Vocabulary(posts)
 	assert.NoError(t, err)
 
-	binaryRepresentation, err := recommender.getBinaryRepresentation(posts[0], vocabulary)
+	_, err = recommender.getBinaryRepresentation(posts[0], vocabulary)
 	assert.NoError(t, err)
 
-	fmt.Println(binaryRepresentation)
+	//fmt.Println(binaryRepresentation)
 }
 
 func TestBinaryRepresentation(t *testing.T) {
-	recommender := New(WordBoundary, true)
+	recommender := New(WordBoundary, true, []int{1})
 
 	vocabulary, err := recommender.Vocabulary(posts)
 	assert.NoError(t, err)
 
-	binaryRepresentation, err := recommender.BinaryRepresentation(posts, vocabulary)
+	_, err = recommender.BinaryRepresentation(posts, vocabulary)
 	assert.NoError(t, err)
 
-	fmt.Println(binaryRepresentation)
+	//fmt.Println(binaryRepresentation)
+}
+
+func TestNgrams(t *testing.T) {
+	recommender := New(WordBoundary, true, []int{12})
+
+	_, err := recommender.ngrams(posts)
+	assert.NoError(t, err)
+
+	/*for _, ngram := range resultSet {
+		for key, ngramInner := range ngram {
+			fmt.Printf("%s -> %d\n", key, ngramInner)
+		}
+	}*/
+}
+
+func BenchmarkNgrams(b *testing.B) {
+	recommender := New(WordBoundary, true, []int{2, 3, 4, 5, 6, 7, 8, 9})
+
+	//var resultSet []map[string]uint32
+	var err error
+	for i := 0; i < b.N; i++ {
+		_, err = recommender.ngrams(posts)
+		if err != nil {
+			panic(err)
+		}
+		//assert.NoError(b., err)
+	}
+
+	/*for _, ngram := range resultSet {
+		for key, ngramInner := range ngram {
+			fmt.Printf("%s -> %d\n", key, ngramInner)
+		}
+	}*/
 }

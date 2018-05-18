@@ -2,6 +2,7 @@ package recommender
 
 import (
 	"errors"
+	"math"
 	"reflect"
 	"strings"
 
@@ -13,6 +14,7 @@ import (
 /*
 	https://en.wikipedia.org/wiki/Bag-of-words_model
 	https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html
+	https://machinelearningmastery.com/gentle-introduction-bag-words-model/
 */
 
 type TokenizerType int8
@@ -28,6 +30,7 @@ const (
 type Recommender struct {
 	TokenizerType TokenizerType
 	Stemming      bool
+	NgramsSizes   []int
 	tokenizer     tokenize.ProseTokenizer
 }
 
@@ -35,10 +38,11 @@ type Recommender struct {
 	Setup of the recommender
 */
 
-func New(tokenizerType TokenizerType, stemming bool) Recommender {
+func New(tokenizerType TokenizerType, stemming bool, ngramsSizes []int) Recommender {
 	r := Recommender{
 		TokenizerType: tokenizerType,
 		Stemming:      stemming,
+		NgramsSizes:   ngramsSizes,
 	}
 
 	r.getTokenizer()
@@ -81,21 +85,19 @@ func (r *Recommender) stem(words []string) []string {
 	return stemmer.StemMultiple(words)
 }
 
-func (r *Recommender) getWords(unprocessedContent interface{}) ([]string, error) {
-	//var documentVectors []string
-
+func (r *Recommender) getContent(unprocessedContent interface{}) (string, error) {
 	rv := reflect.ValueOf(unprocessedContent)
 	rt := rv.Type()
 
 	if rt.Kind() != reflect.Slice {
-		return nil, errors.New("must be slice")
+		return "", errors.New("must be slice")
 	}
 
 	var wholeContent string
 	for i := 0; i < rv.Len(); i++ {
 		rvInner := rv.Index(i)
 		if rvInner.Kind() != reflect.Struct {
-			return nil, errors.New("slice elements must be structs")
+			return "", errors.New("slice elements must be structs")
 		}
 
 		rvInnerType := rvInner.Type()
@@ -115,7 +117,16 @@ func (r *Recommender) getWords(unprocessedContent interface{}) ([]string, error)
 		}
 	}
 
-	return r.tokenize(wholeContent), nil
+	return wholeContent, nil
+}
+
+func (r *Recommender) getWords(unprocessedContent interface{}) ([]string, error) {
+	content, err := r.getContent(unprocessedContent)
+	if err != nil {
+		return nil, err
+	}
+
+	return r.tokenize(content), nil
 }
 
 func (r *Recommender) getUniqueWords(words []string) []string {
@@ -133,6 +144,43 @@ func (r *Recommender) getUniqueWords(words []string) []string {
 
 func (r *Recommender) tokenize(data string) []string {
 	return r.tokenizer.Tokenize(data)
+}
+
+func (r *Recommender) tokenizeTreebankWord(data string) []string {
+	t := tokenize.NewTreebankWordTokenizer()
+	return t.Tokenize(data)
+}
+
+func (r *Recommender) ngrams(unprocessedContent interface{}) ([]map[string]uint32, error) {
+	content, err := r.getContent(unprocessedContent)
+	if err != nil {
+		return nil, err
+	}
+
+	words := r.tokenize(content)
+
+	var ngrams []map[string]uint32
+	for _, size := range r.NgramsSizes {
+		ngrams = append(ngrams, r.ngramsBySize(words, size))
+	}
+
+	return ngrams, nil
+}
+
+func (r *Recommender) ngramsBySize(words []string, size int) map[string]uint32 {
+	count := make(map[string]uint32, 0)
+	offset := int(math.Floor(float64(size / 2)))
+
+	max := len(words)
+	for i := range words {
+		if i < offset || i+size-offset > max {
+			continue
+		}
+		gram := strings.Join(words[i-offset:i+size-offset], " ")
+		count[gram]++
+	}
+
+	return count
 }
 
 /*
