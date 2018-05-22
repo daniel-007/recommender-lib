@@ -63,30 +63,6 @@ var posts = []PostTest{
 	},
 }
 
-/*func TestGetBinaryRepresentation(t *testing.T) {
-	recommender := New(WordBoundary, true, []int{1})
-
-	vocabulary, err := recommender.Vocabulary(posts)
-	assert.NoError(t, err)
-
-	_, err = recommender.getBinaryRepresentation(posts[0], vocabulary)
-	assert.NoError(t, err)
-
-	//fmt.Println(binaryRepresentation)
-}
-
-func TestBinaryRepresentation(t *testing.T) {
-	recommender := New(WordBoundary, true, []int{1})
-
-	vocabulary, err := recommender.Vocabulary(posts)
-	assert.NoError(t, err)
-
-	_, err = recommender.BinaryRepresentation(posts, vocabulary)
-	assert.NoError(t, err)
-
-	//fmt.Println(binaryRepresentation)
-}
-
 func TestFrequency(t *testing.T) {
 	recommender := New(WordBoundary, true, []int{1})
 

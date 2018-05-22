@@ -2,6 +2,7 @@ package recommender
 
 import (
 	"errors"
+	"fmt"
 	"math"
 	"reflect"
 	"strings"
@@ -36,7 +37,15 @@ func (b *BOW) Get(unprocessedContent interface{}) ([]string, error) {
 		words = b.getUniqueWords(b.stem(words))
 	}
 
-	return b.getUniqueWords(words), nil
+	singleWords := b.getUniqueWords(words)
+
+	ngrams, err := b.ngrams(unprocessedContent)
+	if err != nil {
+		return nil, err
+	}
+	ngramsSlice := b.ngramsToSlice(ngrams)
+
+	return append(singleWords, ngramsSlice...), nil
 }
 
 func (b *BOW) getContent(unprocessedContent interface{}) (string, error) {
@@ -77,6 +86,7 @@ func (b *BOW) getContent(unprocessedContent interface{}) (string, error) {
 // stem get the vocabulary and get the exact words like the pure meaning
 // ex.: doing -> do
 func (b *BOW) stem(words []string) []string {
+	fmt.Println(stemmer.StemMultiple(words))
 	return stemmer.StemMultiple(words)
 }
 
