@@ -1,11 +1,5 @@
 package recommender
 
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
-
 type PostTest struct {
 	ID    string `indexable:"id"`
 	Title string `indexable:"content"`
@@ -69,18 +63,7 @@ var posts = []PostTest{
 	},
 }
 
-func TestGetWords(t *testing.T) {
-	recommender := New(WordBoundary, true, []int{1})
-
-	words, err := recommender.getWords(posts)
-	assert.NoError(t, err)
-	assert.Equal(t, 3486, len(words))
-
-	words = recommender.getUniqueWords(words)
-	assert.Equal(t, 1317, len(words))
-}
-
-func TestGetBinaryRepresentation(t *testing.T) {
+/*func TestGetBinaryRepresentation(t *testing.T) {
 	recommender := New(WordBoundary, true, []int{1})
 
 	vocabulary, err := recommender.Vocabulary(posts)
@@ -104,26 +87,15 @@ func TestBinaryRepresentation(t *testing.T) {
 	//fmt.Println(binaryRepresentation)
 }
 
-func TestNgrams(t *testing.T) {
-	recommender := New(WordBoundary, true, []int{12})
-
-	_, err := recommender.ngrams(posts)
-	assert.NoError(t, err)
-
-	/*for _, ngram := range resultSet {
-		for key, ngramInner := range ngram {
-			fmt.Printf("%s -> %d\n", key, ngramInner)
-		}
-	}*/
-}
-
 func TestFrequency(t *testing.T) {
 	recommender := New(WordBoundary, true, []int{1})
 
 	words, err := recommender.getWords(posts)
 	assert.NoError(t, err)
 
-	recommender.Frequency(words)
+	freqs := recommender.Frequency(words)
+
+	recommender.CosineSimilarity(freqs, freqs)
 }
 
 func BenchmarkNgrams(b *testing.B) {
@@ -139,9 +111,9 @@ func BenchmarkNgrams(b *testing.B) {
 		//assert.NoError(b., err)
 	}
 
-	/*for _, ngram := range resultSet {
+	for _, ngram := range resultSet {
 		for key, ngramInner := range ngram {
 			fmt.Printf("%s -> %d\n", key, ngramInner)
 		}
-	}*/
-}
+	}
+}*/
