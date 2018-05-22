@@ -31,3 +31,21 @@ func TestAnalyze(t *testing.T) {
 		fmt.Println(similarity)
 	}
 }
+
+func BenchmarkAnalyze(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		tfidf := NewTFIDF()
+		bow := NewBOW(false, []int{2, 3})
+
+		words, err := bow.Get(posts)
+		if err != nil {
+			panic(err)
+		}
+
+		_, err = tfidf.Amalyze(words, posts)
+		if err != nil {
+			panic(err)
+		}
+
+	}
+}
