@@ -63,7 +63,7 @@ var posts = []PostTest{
 	},
 }
 
-func TestFrequency(t *testing.T) {
+/*func TestFrequency(t *testing.T) {
 	recommender := New(WordBoundary, true, []int{1})
 
 	words, err := recommender.getWords(posts)

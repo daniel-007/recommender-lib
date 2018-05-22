@@ -1,7 +1,6 @@
 package recommender
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -27,8 +26,8 @@ func TestBinaryRepresentation(t *testing.T) {
 	vocabulary, err := bow.Get(posts)
 	assert.NoError(t, err)
 
-	binaryRepresentation, err := vector.BinaryRepresentation(posts, vocabulary)
+	_, err = vector.BinaryRepresentation(posts, vocabulary)
 	assert.NoError(t, err)
 
-	fmt.Println(binaryRepresentation)
+	//fmt.Println(binaryRepresentation)
 }

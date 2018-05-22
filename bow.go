@@ -11,6 +11,10 @@ import (
 	"github.com/jdkato/prose/tokenize"
 )
 
+/*
+	@TODO: add stopwords
+*/
+
 type BOW struct {
 	Stemming    bool
 	NgramsSizes []int
