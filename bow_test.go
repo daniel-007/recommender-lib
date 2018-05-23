@@ -24,10 +24,10 @@ func TestGetWords(t *testing.T) {
 
 	words, err := bow.getWords(posts)
 	assert.NoError(t, err)
-	assert.Equal(t, 3486, len(words))
+	assert.Equal(t, 7567, len(words))
 
 	words = bow.getUniqueWords(words)
-	assert.Equal(t, 1317, len(words))
+	assert.Equal(t, 2253, len(words))
 }
 
 func TestGetBOW(t *testing.T) {
@@ -35,6 +35,6 @@ func TestGetBOW(t *testing.T) {
 
 	words, err := bow.Get(posts)
 	assert.NoError(t, err)
-	assert.Equal(t, 11081, len(words))
+	assert.Equal(t, 22984, len(words))
 
 }

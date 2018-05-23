@@ -61,6 +61,154 @@ var posts = []PostTest{
 		Working with Donahue, I became familiar with the range of evidence he’d developed in support of his friendly fire scenario. But three key ballistic facts stood out:
 		First, the fatal bullet’s trajectory was not compatible with a shot from Oswald. The entrance wound in the back of Kennedy’s skull was just to the right of the the crown, or hair whorl, and the exit point was centered in the upper-right portion of the skull. This indicated a bullet path of left-to-right and down at a relatively shallow angle, not right-to-left and sharply down, as would have been the case had Oswald fired the shot. A bullet from the sixth-floor window of the book depository should have exited the center or left side of the president’s face, not the upper right, frontal portion of his skull, based on the position of Kennedy’s head at the moment of impact. The actual trajectory led directly back to Hickey’s position in the left-rear seat of the follow-up car.`,
 	},
+	PostTest{
+		// Original post: https://medium.com/@kentkroeger3/how-the-democrats-could-still-blow-the-2018-midterms-aa24dc7f50f9
+		ID:    "cef0dae7-6927-4875-977a-39c378394930",
+		Title: "How the Democrats could still lose the 2018 midterms",
+		Body: `The chances are still good that the Democrats will win control of at least the U.S. House this November.
+		The prediction market PredictIt.com gives the Democrats a 69 percent chance of gaining control of the U.S. House. And while the same market gives the Democrats only a 38 percent chance of controlling the U.S. Senate, those are odds the Democrats only a year ago would have made them giddy with optimism.
+		My own midterm election models (which you can access here) indicate, under current conditions, the Republicans will lose 37 House seats and 4 Senate seats, putting both chambers under the control of the Democrats.
+		The smart money remains solidly in the Democratic Party’s corner for the 2018 midterms.
+		Yet, with the 2016 presidential election as a vivid reminder, Democrats know there is no such thing as a ‘sure thing’ in American politics. Despite a year and a half media obsession over the Trump-Russia collusion investigation, on November 7th, the Democrats could still find themselves in the minority in both congressional chambers.
+		Here is why that is still a real possibility…
+		The Mueller investigation may not end with a definitive conclusion
+		For 18 months the Trump-Russia collusion story has dominated the national news media. According to the Tyndall Report, among the Top 20 news stories of 2017, Russia-related stories accounted for 31 percent of the coverage by the three broadcast news networks. The ratio for the cable news networks undoubtedly would be even higher.
+		Yet, after all this hostile coverage of the Trump presidency, Democrats need to prepare themselves for this real possibility: The Robert Mueller-led investigation probably will not indict Donald Trump.
+		“Mueller will not indict Trump for obstruction of justice or for any other crime. Period. Full stop. End of story. Speculations to the contrary are just fantasy,” wrote Paul Rosenzweig in The Atlantic last January. “Mueller will not indict the president, even for money laundering. The resolution of the current American crisis is going to be political, not criminal. The future lies with Congress and, ultimately, the electorate, not with prosecutors and the courts.”
+		Rosenzweig isn’t coming out of nowhere with that conclusion. Twenty years ago he served as a Senior Counsel in the investigation of President Clinton. What is his rationale? “The Department of Justice has a long-standing legal opinion that sitting presidents may not be indicted,” writes Rosenzweig. “First issued in 1973 during the Nixon era, the policy was reaffirmed in 2000, during the Clinton era.”
+		And what can we expect from the Mueller probe with respect to President Trump? According to Rosenzweig, he will file a report on his findings with the deputy attorney general, Rod Rosenstein (since the Attorney General Jeff Sessions has recused himself).
+		We are going to get a report. And based on what has been revealed so far, the chances of the Mueller probe proving Trump (or anyone in his orbit) colluded with the Russians to impact the 2016 election is less than certain.
+		Such an ambiguous outcome might further energize #TheResistance’s resolve to put the Democrats in charge of Congress. But it also has the potential to torpedo the movement’s organizing assumption that Trump is not just a misogynistic buffoon, but a traitor. The reality that Trump is not a Russian tool will be deflating for many of his critics.
+		Americans may come to the defense of an embattled president
+		Democrats should be concerned about another potential outcome of the Mueller probe. The American public may not just grow weary of the Trump-Russia collusion story, a significant percentage may rally around the president, particularly if the economy remains strong and real progress towards peace is achieved on the Korean peninsula.
+		There is an historical precedent for this phenomenon. Kenneth Starr’s probe into an array of controversies surrounding President Bill Clinton, including his relationship with Monica Lewinsky, resulted in the House impeaching the president on Dec. 19, 1998. Interestingly, as evidenced in the graph below, Clinton’s Gallup job approval ratings rose consistently until the House impeachment. And though his ratings did dip during the Senate trial (in which Clinton was not convicted), they never dropped below 50 percent.`,
+	},
+	PostTest{
+		// Original post: https://medium.com/@jimmysong/why-blockchain-is-hard-60416ea4c5c
+		ID:    "e81b01f1-10cf-47d5-aa4f-a8d061b1af4a",
+		Title: "Why Blockchain is Hard",
+		Body: `The hype around blockchain is massive. To hear the blockchain hype train tell it, blockchain will now:
+		Solve income inequality
+		Make all data secure forever
+		Make everything much more efficient and trustless
+		Save dying babies
+		What the heck is a blockchain, anyway? And can it really do all these things? Can blockchain bring something amazing to industries as diverse as health care, finance, supply chain management and music rights?
+		And doesn’t being for Bitcoin mean that you’re pro-blockchain? How can you be for Bitcoin but say anything bad about the technology behind it?
+		In this article, I seek to answer a lot of these questions by looking at what a blockchain is and more importantly, what it’s not.
+		What is a blockchain?
+		To examine some of these claims, we have to define what a blockchain is and herein lies a lot of the confusion. Many companies use the word “blockchain” to mean some sort of magical device by which all their data will never be wrong. Such a device, of course, does not exist, at least when the real world is involved.
+		So what is a blockchain? Technically speaking, a blockchain is a linked list of blocks and a block is a group of ordered transactions. If you didn’t understand the last sentence, you can think of a blockchain as a subset of a database, with a few additional properties.
+		The main thing distinguishing a blockchain from a normal database is that there are specific rules about how to put data into the database. That is, it cannot conflict with some other data that’s already in the database (consistent), it’s append-only (immutable), and the data itself is locked to an owner (ownable), it’s replicable and available. Finally, everyone agrees on what the state of the things in the database are (canonical) without a central party (decentralized).
+		It is this last point that really is the holy grail of blockchain. Decentralization is very attractive because it implies there is no single point of failure. That is, no single authority will be able to take away your asset or change “history” to suit their needs. This immutable audit trail where you don’t have to trust anyone is the benefit that everyone that’s playing with this technology is looking for. This benefit, however, come at a great cost.
+		The Cost of Blockchains
+		The immutable audit trail uncontrolled by any single party is certainly useful, but there are many costs to create such a system. Let’s examine some of the issues.
+		Development is stricter and slower
+		Creating a provably consistent system is not an easy task. A small bug could corrupt the entire database or cause some databases to be different than other ones. Of course, a corrupted or split database no longer has any consistency guarantees. Furthermore, all such systems have to be designed from the outset to be consistent. There is no “move fast and break things” in a blockchain. If you break things, you lose consistency and the blockchain becomes corrupted and worthless.
+		You may be thinking, why can’t you just fix the database or start over and move on? That would be easy enough to do in a centralized system, but this is very difficult in a decentralized one. You need consensus, or the agreement of all players in the system, in order to change the database. The blockchain has to be a public resource that’s not under the control of a single entity (decentralized, remember?), or the entire effort is a very expensive way to create a slow, centralized database.
+		Incentive structures are difficult to design
+		Adding the right incentive structures and making sure that all actors in the system cannot abuse or corrupt the database is likewise a large consideration. A blockchain may be consistent, but that’s not very useful if it’s got a lot of frivolous, useless data in it because the costs of putting data into it are very low. Neither is a consistent blockchain useful if it has almost no data because the costs of putting data into it are very high.
+		What gives the data finality? How can you ensure that the rewards are aligned with the network goals? Why do nodes keep or update the data and what makes them choose one piece of data over another when they are in conflict? These are all incentive questions that need good answers and they need to be aligned not just at the beginning but at all points in the future as technology and companies change, otherwise the blockchain is not useful.
+		Again, you may be wondering why you can’t “fix” some broken incentive. Once again, this is easy in a centralized system, but in a decentralized one, you simply cannot change anything without consensus. There’s no “fixing” anything unless there’s agreement from everyone.
+		Maintenance is very costly
+		A traditional centralized database only needs to be written to once. A blockchain needs to be written to thousands of times. A traditional centralized database needs to only checks the data once. A blockchain needs to check the data thousands of times. A traditional centralized database needs to transmit the data for storage only once. A blockchain needs to transmit the data thousands of times.
+		The costs of maintaining a blockchain are orders of magnitude higher and the cost needs to be justified by utility. Most applications looking for some of the properties stated earlier like consistency and reliability can get such things for a whole lot cheaper utilizing integrity checks, receipts and backups.
+		Users are sovereign
+		This can be really good as companies don’t like the liability of having user data in the first place. This can be bad, however, if the user is “misbehaving”. There’s no way to kick out the user that’s spamming your blockchain with frivolous data or has figured out a way to profit in some fashion that causes other users lots of inconvenience. This is related to the above observation that incentive structures have to be designed really, really well in that a user that figures out an exploit is not likely to give that up, especially if there’s profit for the user.
+		You may be thinking that you can simply refuse service to malicious users, which would be very easy to do in a centralized service. However, unlike a centralized service, refusing service is difficult because no single entity has the authority to kick anyone out. The blockchain has to be impartial and enforce the rules defined by the software. If the rules are insufficient to deter bad behavior, you’re out of luck. There is no “spirit” of the law here. You simply have to deal with malicious or misbehaving actors, possibly for a very long time.
+		All upgrades are voluntary
+		A forced upgrade is not an option. The other players on the network have no obligation to change to your software. If they did, such a system would be much easier, faster and cheaper to build as a centralized system. The point of a blockchain is that it’s not under the control of a single entity and this is violated with a forced upgrade.`,
+	},
+	PostTest{
+		// Original post: https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53
+		ID:    "7db32b21-4c15-430d-bef9-c139b35d83c0",
+		Title: "Goodbye, Object Oriented Programming",
+		Body: `I’ve been programming in Object Oriented languages for decades. The first OO language I used was C++ and then Smalltalk and finally .NET and Java.
+		I was gung-ho to leverage the benefits of Inheritance, Encapsulation, and Polymorphism. The Three Pillars of the Paradigm.
+		I was eager to gain the promise of Reuse and leverage the wisdom gained by those who came before me in this new and exciting landscape.
+		I couldn’t contain my excitement at the thought of mapping my real-world objects into their Classes and expected the whole world to fall neatly into place.
+		I couldn’t have been more wrong.
+		Inheritance, the First Pillar to Fall
+		At first glance, Inheritance appears to be the biggest benefit of the Object Oriented Paradigm. All the simplistic examples of shape hierarchies that are paraded out as examples to the newly indoctrinated seem to make logical sense.
+		And Reuse is the word of the day. No… make that the year and perhaps evermore.
+		I swallowed this whole and rushed out into the world with my newfound insight.
+		Banana Monkey Jungle Problem
+		With religion in my heart and problems to solve, I started building Class Hierarchies and writing code. And all was right with the world.
+		I’ll never forget that day when I was ready to cash in on the promise of Reuse by inheriting from an existing class. This was the moment I had been waiting for.
+		A new project came along and I thought back to that Class that I was so fond of in my last project.
+		No problem. Reuse to the rescue. All I gotta do is simply grab that Class from the other project and use it.
+		Well… actually… not just that Class. We’re gonna need the parent Class. But… But that’s it.
+		Ugh… Wait… Looks like we gonna also need the parent’s parent too... And then… We’re going to need ALL of the parents. Okay… Okay… I handle this. No problem.
+		And great. Now it won’t compile. Why?? Oh, I see… This object contains this other object. So I’m gonna need that too. No problem.
+		Wait… I don’t just need that object. I need the object’s parent and its parent’s parent and so on and so on with every contained object and ALL the parents of what those contain along with their parent’s, parent’s, parent’s…
+		Ugh.
+		There’s a great quote by Joe Armstrong, the creator of Erlang:
+		The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle.
+		Banana Monkey Jungle Solution
+		I can tame this problem by not creating hierarchies that are too deep. But if Inheritance is the key to Reuse, then any limits I place on that mechanism will surely limit the benefits of Reuse. Right?
+		Right.
+		So what’s a poor Object Oriented Programmer, who’s had a healthy helping of the Kool-aid, to do?
+		Contain and Delegate. More on this later.
+		The Diamond Problem
+		Sooner or later, the following problem will rear its ugly and, depending on the language, unsolvable head.
+		Most OO languages do not support this, even though this seems to make logical sense. What’s so difficult about supporting this in OO languages?`,
+	},
+	PostTest{
+		// Original post: https://medium.freecodecamp.org/an-introduction-to-nginx-for-developers-62179b6a458f
+		ID:    "281df9f7-43fc-4cca-bc54-da21dfa4d86b",
+		Title: "An Introduction to NGINX for Developers",
+		Body: `Picture this - you’ve created a web application and are now searching for the right web server to host it from.
+		Your application might consist of multiple static files — HTML, CSS, and JavaScript, a backend API service or even multiple webservices. Using Nginx might be what you are looking for, and there are couple of reasons for that.
+		NGINX is a powerful web server and uses a non-threaded, event-driven architecture that enables it to outperform Apache if configured correctly. It can also do other important things, such as load balancing, HTTP caching, or be used as a reverse proxy.
+		NGINX Architecture
+		In this article, I’ll cover a few basic steps about how to install and configure the most common parts of NGINX.
+		Basic Installation — Architecture
+		There are two ways to install NGINX, either using a pre-built binary or building it up from source.
+		The first method is much easiest and faster, but building it up from source provides the ability to include various third-party modules that make NGINX even more powerful. It allows us to customize it to fit the needs of the application.
+		To install a prebuilt Debian package, the only thing you have to do is:
+		sudo apt-get update
+		sudo apt-get install nginx
+		After the installation process has finished, you can verify everything is OK by running the command below, which should print the latest version of NGINX.
+		Your new webserver will be installed at the location /etc/nginx/. If you go inside this folder, you will see several files and folders. The most important ones that will require our attention later are the file nginx.conf and the folder sites-available.
+		Configuration Settings
+		The core settings of NGINX are in the nginx.conf file, which by default looks like this.
+		The file is structured into Contexts. The first one is the events Context, and the second one is the http Context. This structure enables some advanced layering of your configuration as each context can have other nested contexts that inherit everything from their parent but can also override a setting as needed.
+		Various things in this file can be tweaked based on your needs, but NGINX is so simple to use that you can go along even with the default settings. Some of the most important pieces of the NGINX config file are:
+		worker_processes: This setting defines the number of worker processes that NGINX will use. Because NGINX is single threaded, this number should usually be equal to the number of CPU cores.
+		worker_connections: This is the maximum number of simultaneous connections for each worker process and tells our worker processes how many people can simultaneously be served by NGINX. The bigger it is, the more simultaneous users the NGINX will be able to serve.
+		access_log & error_log: These are the files that NGINX will use to log any erros and access attempts. These logs are generally reviewed for debugging and troubleshooting.
+		gzip: These are the settings for GZIP compression of NGINX responses. Enabling this one along with the various sub-settings that by default are commented out will result in a quite a big performance upgrade. From the sub-settings of GZIP, care should be taken for the gzip_comp_level, which is the level of compression and ranges from 1 to 10. Generally, this value should not be above 6 — the gain in terms of size reduction is insignificant, as it needs a lot more CPU usage. gzip_types is a list of response types that compression will be applied on.
+		Your NGINX install can support far more than a single website, and the files that define your server’s sites live in the /etc/nginx/sites-available directory.
+		However, the files in this directory aren’t “live” — you can have as many site definition files in here as you want, but NGINX won’t actually do anything with them unless they’re symlinked into the /etc/nginx/sites-enabled directory (you could also copy them there, but symlinking ensures there’s only one copy of each file to keep track of).
+		This gives you a method to quickly put websites online and take them offline without having to actually delete any files — when you’re ready for a site to go online, symlink it into sites-enabled and restart NGINX.
+		The sites-available directory includes configurations for virtual hosts. This allows the web server to be configured for multiple sites that have separate configurations. The sites within this directory are not live and are only enabled if we create a symbolic link into the sites-enabled folder.
+		Either create a new file for you application or edit the default one. A typical configuration looks like the below one.`,
+	},
+	PostTest{
+		// Original post: https://codeburst.io/top-10-javascript-errors-from-1000-projects-and-how-to-avoid-them-2956ce008437
+		ID:    "f38ff4e4-185a-42b3-835c-28c430d09b91",
+		Title: "Top 10 JavaScript errors from 1000+ projects (and how to avoid them)",
+		Body: `To give back to our community of developers, we looked at our database of thousands of projects and found the top 10 errors in JavaScript. We’re going to show you what causes them and how to prevent them from happening. If you avoid these “gotchas,” it’ll make you a better developer.
+		Because data is king, we collected, analyzed, and ranked the top 10 JavaScript errors. Rollbar collects all the errors for each project and summarizes how many times each one occurred. We do this by grouping errors according to their fingerprints. Basically, we group two errors if the second one is just a repeat of the first. This gives users a nice overview instead of an overwhelming big dump like you’d see in a log file.
+		We focused on the errors most likely to affect you and your users. To do this, we ranked errors by the number of projects experiencing them across different companies. If we looked only at the total number of times each error occurred, then high-volume customers could overwhelm the data set with errors that are not relevant to most readers.
+		Here are the top 10 JavaScript errors:
+		Each error has been shortened for easier readability. Let’s dive deeper into each one to determine what can cause it and how you can avoid creating it.
+		1. Uncaught TypeError: Cannot read property
+		If you’re a JavaScript developer, you’ve probably seen this error more than you care to admit. This one occurs in Chrome when you read a property or call a method on an undefined object. You can test this very easily in the Chrome Developer Console.
+		This can occur for many reasons, but a common one is improper initialization of state while rendering the UI components. Let’s look at an example of how this can occur in a real-world app. We’ll pick React, but the same principles of improper initialization also apply to Angular, Vue or any other framework.
+		There are two important things realize here:
+		A component’s state (e.g. this.state) begins life as undefined.
+		When you fetch data asynchronously, the component will render at least once before the data is loaded — regardless of whether it’s fetched in the constructor, componentWillMount or componentDidMount. When Quiz first renders, this.state.items is undefined. This, in turn, means ItemList gets items as undefined, and you get an error – "Uncaught TypeError: Cannot read property ‘map’ of undefined" in the console.
+		This is easy to fix. The simplest way: Initialize state with reasonable default values in the constructor.
+		The exact code in your app might be different, but we hope we’ve given you enough of a clue to either fix or avoid this problem in your app. If not, keep reading because we’ll cover more examples for related errors below.
+		2. TypeError: ‘undefined’ is not an object (evaluating
+		This is an error that occurs in Safari when you read a property or call a method on an undefined object. You can test this very easily in the Safari Developer Console. This is essentially the same as the above error for Chrome, but Safari uses a different error message.
+		3. TypeError: null is not an object (evaluating
+		This is an error that occurs in Safari when you read a property or call a method on a null object. You can test this very easily in the Safari Developer Console.
+		Interestingly, in JavaScript, null and undefined are not the same, which is why we see two different error messages. Undefined is usually a variable that has not been assigned, while null means the value is blank. To verify they are not equal, try using the strict equality operator:
+		One way this error might occur in a real world example is if you try using a DOM element in your JavaScript before the element is loaded. That’s because the DOM API returns null for object references that are blank.
+		Any JS code that executes and deals with DOM elements should execute after the DOM elements have been created. JS code is interpreted from top to down as laid out in the HTML. So, if there is a tag before the DOM elements, the JS code within script tag will execute as the browser parses the HTML page. You will get this error if the DOM elements have not been created before loading the script.
+		In this example, we can resolve the issue by adding an event listener that will notify us when the page is ready. Once the addEventListener is fired, the init()method can make use of the DOM elements.`,
+	},
 }
 
 /*func TestFrequency(t *testing.T) {

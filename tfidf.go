@@ -14,6 +14,11 @@ type Similarity struct {
 	Sim     float64
 }
 
+type WeightContainer struct {
+	ID     string
+	Weight map[string]float64
+}
+
 type TFIDF struct {
 }
 
@@ -30,21 +35,23 @@ func (t *TFIDF) Amalyze(docs []string, unprocessedContent interface{}) ([]Simila
 		return nil, err
 	}
 
-	var weights = make(map[string]map[string]float64)
+	var weights []WeightContainer
 	for id, data := range dataContainer {
 		weight := f.Cal(data)
-		weights[id] = weight
+		weights = append(weights, WeightContainer{
+			ID:     id,
+			Weight: weight,
+		})
 	}
 
-	// @TODO do the exact checks only once
 	var result []Similarity
-	for id, weight := range weights {
-		for id2, weight2 := range weights {
-			if id != id2 {
-				sim := similarity.Cosine(weight, weight2)
+	for i := 0; i < len(weights); i++ {
+		for j := i; j < len(weights); j++ {
+			if weights[i].ID != weights[j].ID {
+				sim := similarity.Cosine(weights[i].Weight, weights[j].Weight)
 				simObj := Similarity{
-					Term1ID: id,
-					Term2ID: id2,
+					Term1ID: weights[i].ID,
+					Term2ID: weights[j].ID,
 					Sim:     sim,
 				}
 				result = append(result, simObj)
