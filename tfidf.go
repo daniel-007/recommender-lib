@@ -26,7 +26,7 @@ func NewTFIDF() TFIDF {
 	return TFIDF{}
 }
 
-func (t *TFIDF) Amalyze(docs []string, unprocessedContent interface{}) ([]Similarity, error) {
+func (t *TFIDF) Analyze(docs []string, unprocessedContent interface{}) ([]Similarity, error) {
 	f := tfidf.New()
 	f.AddDocs(docs...)
 

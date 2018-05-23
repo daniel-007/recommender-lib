@@ -24,7 +24,7 @@ func TestAnalyze(t *testing.T) {
 	words, err := bow.Get(posts)
 	assert.NoError(t, err)
 
-	similarities, err := tfidf.Amalyze(words, posts)
+	similarities, err := tfidf.Analyze(words, posts)
 	assert.NoError(t, err)
 
 	for _, similarity := range similarities {
@@ -42,7 +42,7 @@ func BenchmarkAnalyze(b *testing.B) {
 			panic(err)
 		}
 
-		_, err = tfidf.Amalyze(words, posts)
+		_, err = tfidf.Analyze(words, posts)
 		if err != nil {
 			panic(err)
 		}
